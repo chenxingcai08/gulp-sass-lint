@@ -32,16 +32,19 @@ var sassLint = function (options) {
       var fileBufferContent = file.contents;
       var fileType = path.extname(file.path).replace('.', '');
       var fileContent;
-      var vueSassCode;
+      var vueSassCode = '';
 
       // 支持 vue 文件
       if (fileType === 'vue') {
         fileType = 'scss';
         fileContent = fileBufferContent.toString('utf-8');
-        vueSassCode = fileContent.match(/<style([\s\S]*)lang="sass">([\s\S]*)<\/style>/i)[0];
-        vueSassCode = vueSassCode.replace(/<template>[\s\S]*<style[\s\S]*<\/style>/, '').replace(/<\/style>/gi, '').replace(/<style[\s\S]*>/gi, '');
-        // vueSassCode = ['.hack {', vueSassCode, '}'].join('\n'); 使用顶格的方式，充分利用编辑器的空间
-        fileBufferContent = new Buffer(vueSassCode, 'utf-8');
+        matchedVueSassCode = fileContent.match(/<style([\s\S]*)lang="sass">([\s\S]*)<\/style>/i);
+        if (matchedVueSassCode && matchedVueSassCode.length) {
+          vueSassCode = matchedVueSassCode[0];
+          vueSassCode = vueSassCode.replace(/<template>[\s\S]*<style[\s\S]*<\/style>/, '').replace(/<\/style>/gi, '').replace(/<style[\s\S]*>/gi, '');
+          // vueSassCode = ['.hack {', vueSassCode, '}'].join('\n'); 使用顶格的方式，充分利用编辑器的空间
+          fileBufferContent = new Buffer(vueSassCode, 'utf-8');
+        }
       }
 
       file.sassLint = [
