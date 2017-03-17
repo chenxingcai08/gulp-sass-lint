@@ -32,6 +32,7 @@ var sassLint = function (options) {
       var fileBufferContent = file.contents;
       var fileType = path.extname(file.path).replace('.', '');
       var fileContent;
+      var matchedVueSassCode;
       var vueSassCode = '';
 
       // 支持 vue 文件
