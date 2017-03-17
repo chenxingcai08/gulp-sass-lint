@@ -1,15 +1,4 @@
-//////////////////////////////
-// Sass Lint
-//  - A Gulp Plugin
-//
-// Lints Sass files
-//////////////////////////////
-
 'use strict';
-
-//////////////////////////////
-// Variables
-//////////////////////////////
 
 var through = require('through2'),
   gutil = require('gulp-util'),
@@ -17,10 +6,6 @@ var through = require('through2'),
   path = require('path'),
   PluginError = gutil.PluginError,
   PLUGIN_NAME = 'sass-lint';
-
-//////////////////////////////
-// Export
-//////////////////////////////
 
 var sassLint = function (options) {
   var userOptions = options || {};
@@ -55,7 +40,7 @@ var sassLint = function (options) {
         fileContent = fileBufferContent.toString('utf-8');
         vueSassCode = fileContent.match(/<style([\s\S]*)lang="sass">([\s\S]*)<\/style>/i)[0];
         vueSassCode = vueSassCode.replace(/<template>[\s\S]*<style[\s\S]*<\/style>/, '').replace(/<\/style>/gi, '').replace(/<style[\s\S]*>/gi, '');
-        vueSassCode = ['.hack {', vueSassCode, '}'].join('\n');
+        // vueSassCode = ['.hack {', vueSassCode, '}'].join('\n'); 使用顶格的方式，充分利用编辑器的空间
         fileBufferContent = new Buffer(vueSassCode, 'utf-8');
       }
 
