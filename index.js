@@ -43,8 +43,8 @@ var sassLint = function (options) {
           vueSassCode = matchedVueSassCode[0];
           vueSassCode = vueSassCode.replace(/<template>[\s\S]*<style[\s\S]*<\/style>/, '').replace(/<\/style>/gi, '').replace(/<style[\s\S]*>/gi, '');
           // vueSassCode = ['.hack {', vueSassCode, '}'].join('\n'); 使用顶格的方式，充分利用编辑器的空间
-          fileBufferContent = new Buffer(vueSassCode, 'utf-8');
         }
+        fileBufferContent = new Buffer(vueSassCode, 'utf-8');
       }
 
       file.sassLint = [
