@@ -43,7 +43,10 @@ var sassLint = function (options) {
         if (matchedVueSassCode && matchedVueSassCode.length) {
           vueSassCode = matchedVueSassCode[0];
           vueSassCode = vueSassCode.replace(/<template>[\s\S]*<style[\s\S]*<\/style>/, '').replace(/<\/style>/gi, '').replace(/<style[\s\S]*>/gi, '');
-          // vueSassCode = ['.hack {', vueSassCode, '}'].join('\n'); 使用顶格的方式，充分利用编辑器的空间
+          // 支持顶格缩进和非顶格缩进
+          if (/^\s{2}/.test(vueSassCode)) {
+            vueSassCode = vueSassCode.replace(/^  /gim, '');
+          }
         }
         fileBufferContent = new Buffer(vueSassCode, 'utf-8');
       }
