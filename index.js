@@ -39,10 +39,10 @@ var sassLint = function (options) {
       if (fileType === 'vue') {
         fileType = 'scss';
         fileContent = fileBufferContent.toString('utf-8');
-        matchedVueSassCode = fileContent.match(/<style([\s\S]*)lang="sass">([\s\S]*)<\/style>/i);
+        matchedVueSassCode = fileContent.match(/<style([\s\S]*)lang="sass">([\s\S]*)<\/style>/gi);
         if (matchedVueSassCode && matchedVueSassCode.length) {
           vueSassCode = matchedVueSassCode[0];
-          vueSassCode = vueSassCode.replace(/<template>[\s\S]*<style[\s\S]*<\/style>/, '').replace(/<\/style>/gi, '').replace(/<style[\s\S]*lang="sass">/gi, '');
+          vueSassCode = vueSassCode.replace(/<template>[\s\S]*<style[\s\S]*<\/style>/, '').replace(/<\/style>/gi, '').replace(/<style( scoped)? lang="sass">/gi, '');
           // 支持顶格缩进和非顶格缩进
           if (/^\s{2}/.test(vueSassCode)) {
             vueSassCode = vueSassCode.replace(/^  /gim, '');
