@@ -42,7 +42,7 @@ var sassLint = function (options) {
         matchedVueSassCode = fileContent.match(/<style([\s\S]*)lang="sass">([\s\S]*)<\/style>/i);
         if (matchedVueSassCode && matchedVueSassCode.length) {
           vueSassCode = matchedVueSassCode[0];
-          vueSassCode = vueSassCode.replace(/<template>[\s\S]*<style[\s\S]*<\/style>/, '').replace(/<\/style>/gi, '').replace(/<style[\s\S]*>/gi, '');
+          vueSassCode = vueSassCode.replace(/<template>[\s\S]*<style[\s\S]*<\/style>/, '').replace(/<\/style>/gi, '').replace(/<style[\s\S]*lang="sass">/gi, '');
           // 支持顶格缩进和非顶格缩进
           if (/^\s{2}/.test(vueSassCode)) {
             vueSassCode = vueSassCode.replace(/^  /gim, '');
