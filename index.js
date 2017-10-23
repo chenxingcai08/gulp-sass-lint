@@ -40,6 +40,7 @@ var sassLint = function (options) {
                 fileType = 'scss';
                 fileContent = fileBufferContent.toString('utf-8');
                 matchedVueSassCode = fileContent.match(/<style([\s\S]*)lang="scss">([\s\S]*)<\/style>/gi);
+                var baseLineNumber = fileContent.split(/<style([\s\S]*)lang="scss">/)[0].split(/\r\n|\r|\n/).length;
                 if (matchedVueSassCode && matchedVueSassCode.length) {
                     vueSassCode = matchedVueSassCode[0];
                     vueSassCode = vueSassCode.replace(/<template>[\s\S]*<style[\s\S]*<\/style>/, '').replace(/<\/style>/gi, '').replace(/<style( scoped)? lang="scss">/gi, '');
@@ -47,6 +48,11 @@ var sassLint = function (options) {
                     if (/^\s{4}/.test(vueSassCode)) {
                         vueSassCode = vueSassCode.replace(/^    /gim, '');
                     }
+                    var baseLines = [];
+                    while (--baseLineNumber > 0) {
+                        baseLines.push('\n');
+                    }
+                    vueSassCode = baseLines.join('') + vueSassCode;
                 }
                 fileBufferContent = new Buffer(vueSassCode, 'utf-8');
             }
