@@ -43,7 +43,7 @@ var sassLint = function (options) {
                 var baseLineNumber = fileContent.split(/<style([\s\S]*)lang="scss">/)[0].split(/\r\n|\r|\n/).length;
                 if (matchedVueSassCode && matchedVueSassCode.length) {
                     vueSassCode = matchedVueSassCode[0];
-                    vueSassCode = vueSassCode.replace(/<template>[\s\S]*<style[\s\S]*<\/style>/, '').replace(/<\/style>/gi, '').replace(/<style( scoped)? lang="scss">/gi, '');
+                    vueSassCode = vueSassCode.replace(/<template>[\s\S]*<style[\s\S]*<\/style>/, '').replace(/<\/style>/gi, '').replace(/<style( scoped)?(="")? lang="scss">/gi, '');
                     // 支持顶格缩进和非顶格缩进
                     if (/^\s{4}/.test(vueSassCode)) {
                         vueSassCode = vueSassCode.replace(/^    /gim, '');
